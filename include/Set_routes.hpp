@@ -8,8 +8,8 @@
  * \date April, 2016
  */
 
-#ifndef SET_ROUTES_HPP_
-#define SET_ROUTES_HPP_
+#ifndef SBRP_INCLUDE_SET_ROUTES_HPP_
+#define SBRP_INCLUDE_SET_ROUTES_HPP_
 
 #include "assert.h"
 #include <vector>
@@ -268,4 +268,4 @@ public:
 
 
 
-#endif /* SET_ROUTES_HPP_ */
+#endif /* SBRP_INCLUDE_SET_ROUTES_HPP_ */

@@ -8,8 +8,8 @@
  * \date April, 2016
  */
 
-#ifndef SCHOOL_HPP_
-#define SCHOOL_HPP_
+#ifndef SBRP_INCLUDE_SCHOOL_HPP_
+#define SBRP_INCLUDE_SCHOOL_HPP_
 
 #include "Vertex.hpp"
 #include "Utils.hpp"
@@ -25,4 +25,4 @@ public:
 };
 
 
-#endif /* SCHOOL_HPP_ */
+#endif /* SBRP_INCLUDE_SCHOOL_HPP_ */

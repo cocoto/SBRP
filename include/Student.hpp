@@ -8,8 +8,8 @@
  * \date April, 2016
  */
 
-#ifndef STUDENT_HPP_
-#define STUDENT_HPP_
+#ifndef SBRP_INCLUDE_STUDENT_HPP_
+#define SBRP_INCLUDE_STUDENT_HPP_
 
 #include "Vertex.hpp"
 #include "Utils.hpp"
@@ -22,6 +22,17 @@ public:
 	 */
 	Student(int i);
 
+	int getWeight() const {
+		return weight;
+	}
+
+	void setWeight(int weight) {
+		this->weight = weight;
+	}
+
+private:
+	int weight;
+
 };
 
-#endif /* STUDENT_HPP_ */
+#endif /* SBRP_INCLUDE_STUDENT_HPP_ */

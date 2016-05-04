@@ -8,6 +8,6 @@
 
 #include "Student.hpp"
 
-Student::Student(int i) : Vertex(i) {
+Student::Student(int i) : Vertex(i), weight(1) {
 }
 

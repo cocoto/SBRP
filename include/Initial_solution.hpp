@@ -13,7 +13,7 @@
 
 #include "Instance.hpp"
 #include "Solution.hpp"
-
+#include "NConcatenate.h"
 
 #ifndef INITIAL_SOLUTION_HPP_
 #define INITIAL_SOLUTION_HPP_
@@ -29,6 +29,7 @@ public:
 	 * \return a solution to the problem
 	 */
 	static Solution* random(Instance* inst);
+	static Solution* clark_and_wright(Instance* inst);
 
 };
 

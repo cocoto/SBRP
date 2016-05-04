@@ -8,8 +8,8 @@
  * \date April, 2016
  */
 
-#ifndef STOP_HPP_
-#define STOP_HPP_
+#ifndef SBRP_INCLUDE_STOP_HPP_
+#define SBRP_INCLUDE_STOP_HPP_
 
 #include "Vertex.hpp"
 #include "Utils.hpp"
@@ -26,4 +26,4 @@ public:
 
 
 
-#endif /* STOP_HPP_ */
+#endif /* SBRP_INCLUDE_STOP_HPP_ */

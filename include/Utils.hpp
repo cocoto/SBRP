@@ -9,8 +9,8 @@
  * \date April, 2016
  */
 
-#ifndef UTILS_HPP_
-#define UTILS_HPP_
+#ifndef SBRP_INCLUDE_UTILS_HPP_
+#define SBRP_INCLUDE_UTILS_HPP_
 
 #include "cmath"
 #include <stdlib.h>
@@ -43,4 +43,4 @@ public:
 
 
 
-#endif /* UTILS_HPP_ */
+#endif /* SBRP_INCLUDE_UTILS_HPP_ */

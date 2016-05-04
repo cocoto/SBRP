@@ -7,6 +7,9 @@
  */
 
 #include "Initial_solution.hpp"
+#include <iostream>
+
+using namespace std;
 
 Solution* Initial_solution::random(Instance* inst) {
 	Solution* sol = NULL; /* Solution*/
@@ -53,5 +56,34 @@ Solution* Initial_solution::random(Instance* inst) {
 	return sol;
 }
 
+Solution* Initial_solution::clark_and_wright(Instance* inst) {
+	Solution* solution = new Solution(inst);
 
+	// MILP for assigning students to stops
+	solution->milp_assignment();
 
+	//create a route for each stop
+	std::vector<bool> stop_assigments = solution->get_assignments()->stops_used();
+	for (int i = 0; i < inst->get_num_stops(); ++i) {
+		if(stop_assigments[i]){
+			solution->add_empty_route();
+			solution->insert_stop_route(i, solution->get_num_routes()-1, 0);
+		}
+	}
+
+	printf("Initial solution: \n");
+	solution->print();
+	//iterate the NConcatenate
+	N_Concatenate nconc(inst);
+	double gain = 0;
+	do{
+		Solution* newsol = nconc.getNeighbor(solution, false);
+		cout << "C_W_Number of routes: " << newsol->get_num_routes() << endl;
+		gain = solution->get_total_distance() - newsol->get_total_distance();
+		solution = newsol;
+	}while(gain > 0);
+
+	printf("After C&W: \n");
+	solution->print();
+	return solution;
+}

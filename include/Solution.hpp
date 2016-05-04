@@ -8,13 +8,12 @@
  * \date April, 2016
  */
 
-#ifndef SOLUTION_HPP_
-#define SOLUTION_HPP_
+#ifndef SBRP_INCLUDE_SOLUTION_HPP_
+#define SBRP_INCLUDE_SOLUTION_HPP_
 
 #include "Instance.hpp"
 #include "Set_routes.hpp"
-#include "Assignment_maker.hpp"
-#include "Assignment.hpp"
+#include "StopAssignment.h"
 #include "Utils.hpp"
 
 class Solution {
@@ -24,7 +23,7 @@ private:
 	/** Set of routes that the solution involves*/
 	Set_routes* routes;
 	/** Approach to calculate the assignment of students to stops */
-	Assignment_maker* assignment_maker;
+	StopAssignment* assignments;
 
 	/**
 	 * Empty constructor of the class.
@@ -216,7 +215,7 @@ public:
 	 *
 	 * \return an object assignment if the assignment is feasible, NULL otherwise.
 	 */
-	Assignment* get_assignment();
+	StopAssignment* get_assignments();
 
 
 	/************* Input/Output (reading and printing) functions *************/
@@ -250,8 +249,17 @@ public:
 	 * \param f_p path of the file on which the solution will be printed.
 	 */
 	void print_file_format_students(const char* f_p);
+
+	void merge_paths(int i, int j);
+
+	int get_num_stu(int route);
+
+	int milp_assignment ();
+
+	std::vector<int> get_weights();
+
 };
 
 
 
-#endif /* SOLUTION_HPP_ */
+#endif /* SBRP_INCLUDE_SOLUTION_HPP_ */

@@ -9,6 +9,7 @@
 #include "School.hpp"
 
 School::School(int i) : Vertex(i) {
+
 }
 
 

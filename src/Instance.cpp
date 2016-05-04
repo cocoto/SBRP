@@ -31,9 +31,9 @@ Instance::Instance(int n_stop, int n_stud, int c_bus, double m_d_s) {
 	school = new School(0); /* It is assumed that the first vertex is the school*/
 
 	/* Initialize the array with the stops*/
-	stop = new Stop*[num_stops];
+	stops = new Stop*[num_stops];
 	for (int i = 0; i < n_stop; i++) {
-		stop[i] = new Stop(i + 1); /* The plus one accounts for the school already created*/
+		stops[i] = new Stop(i + 1); /* The plus one accounts for the school already created*/
 	}
 
 	/* Initialize the array with the students*/
@@ -54,9 +54,9 @@ Instance::~Instance() {
 
 	/* Delete the array of stops*/
 	for (int i = 0; i < num_stops; i++) {
-		delete stop[i];
+		delete stops[i];
 	}
-	delete [] stop;
+	delete [] stops;
 
 	/* Delete the school */
 	delete school;
@@ -101,7 +101,7 @@ Stop* Instance::get_stop(int s_i) {
 	/* Check the input parameters */
 	assert_index_stop(s_i);
 
-	return stop[s_i];
+	return stops[s_i];
 }
 
 Student* Instance::get_student(int stu_i) {
@@ -116,7 +116,7 @@ double Instance::get_dist_stop_school(int s_i) {
 	assert_index_stop(s_i);
 
 	/* Use the ids of the vertices as indexes in travel_info*/
-	return travel_info->get_distance(stop[s_i]->get_id(), school->get_id());
+	return travel_info->get_distance(stops[s_i]->get_id(), school->get_id());
 }
 
 double Instance::get_time_stop_school(int s_i) {
@@ -124,7 +124,7 @@ double Instance::get_time_stop_school(int s_i) {
 	assert_index_stop(s_i);
 
 	/* Use the ids of the vertices as indexes in travel_info*/
-	return travel_info->get_time(stop[s_i]->get_id(), school->get_id());
+	return travel_info->get_time(stops[s_i]->get_id(), school->get_id());
 }
 
 double Instance::get_dist_school_stop(int s_i) {
@@ -132,7 +132,7 @@ double Instance::get_dist_school_stop(int s_i) {
 	assert_index_stop(s_i);
 
 	/* Use the ids of the vertices as indexes in travel_info*/
-	return travel_info->get_distance(school->get_id(), stop[s_i]->get_id());
+	return travel_info->get_distance(school->get_id(), stops[s_i]->get_id());
 }
 
 double Instance::get_time_school_stop(int s_i) {
@@ -140,7 +140,7 @@ double Instance::get_time_school_stop(int s_i) {
 	assert_index_stop(s_i);
 
 	/* Use the ids of the vertices as indexes in travel_info*/
-	return travel_info->get_time(school->get_id(), stop[s_i]->get_id());
+	return travel_info->get_time(school->get_id(), stops[s_i]->get_id());
 }
 
 double Instance::get_dist_stops(int s_i_1, int s_i_2) {
@@ -149,7 +149,7 @@ double Instance::get_dist_stops(int s_i_1, int s_i_2) {
 	assert_index_stop(s_i_2);
 
 	/* Use the ids of the vertices as indexes in travel_info*/
-	return travel_info->get_distance(stop[s_i_1]->get_id(), stop[s_i_2]->get_id());
+	return travel_info->get_distance(stops[s_i_1]->get_id(), stops[s_i_2]->get_id());
 }
 
 double Instance::get_time_stops(int s_i_1, int s_i_2) {
@@ -158,7 +158,7 @@ double Instance::get_time_stops(int s_i_1, int s_i_2) {
 	assert_index_stop(s_i_2);
 
 	/* Use the ids of the vertices as indexes in travel_info*/
-	return travel_info->get_time(stop[s_i_1]->get_id(), stop[s_i_2]->get_id());
+	return travel_info->get_time(stops[s_i_1]->get_id(), stops[s_i_2]->get_id());
 }
 
 double Instance::get_dist_student_stop(int stu_i, int sto_i) {
@@ -167,7 +167,7 @@ double Instance::get_dist_student_stop(int stu_i, int sto_i) {
 	assert_index_stop(sto_i);
 
 	/* Use the ids of the vertices as indexes in travel_info*/
-	return travel_info->get_distance(student[stu_i]->get_id(), stop[sto_i]->get_id());
+	return travel_info->get_distance(student[stu_i]->get_id(), stops[sto_i]->get_id());
 }
 
 double Instance::get_time_student_stop(int stu_i, int sto_i) {
@@ -176,7 +176,7 @@ double Instance::get_time_student_stop(int stu_i, int sto_i) {
 	assert_index_stop(sto_i);
 
 	/* Use the ids of the vertices as indexes in travel_info*/
-	return travel_info->get_time(student[stu_i]->get_id(), stop[sto_i]->get_id());
+	return travel_info->get_time(student[stu_i]->get_id(), stops[sto_i]->get_id());
 }
 
 bool Instance::can_student_assigned_stop(int stu_i, int sto_i) {
@@ -220,9 +220,14 @@ Instance* Instance::read_from_files(const char* f_inst, const char* f_dist, cons
 	/* Read the information from the file (check the file format in the file info_format.txt)*/
 	fscanf(file, "%d %d %d %lf", &n_stop, &n_stud, &c_bus, &m_d_s);
 
+
 	/* Create the object with the information read */
 	instance = new Instance(n_stop, n_stud, c_bus, m_d_s);
-
+	for(int i =0 ; i< n_stud ; ++i){
+		int nb=1;
+		//fscanf(file,"%d",&nb);
+		instance->get_student(i)->setWeight(nb);
+	}
 	fclose(file);
 
 	/* Try to read the distance matrix */

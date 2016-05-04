@@ -7,6 +7,7 @@
  */
 
 #include "Assignment.hpp"
+#include <vector>
 
 Assignment::Assignment(Instance* i, Set_routes* r) {
 	instance = i;
@@ -114,6 +115,4 @@ void Assignment::print_file_format(FILE* file) {
 				instance->get_stop(stop_stu)->get_id() + 1);
 	}
 }
-
-
 

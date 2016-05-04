@@ -8,8 +8,8 @@
  * \date April, 2016
  */
 
-#ifndef INSTANCE_HPP_
-#define INSTANCE_HPP_
+#ifndef SBRP_INCLUDE_INSTANCE_HPP_
+#define SBRP_INCLUDE_INSTANCE_HPP_
 
 #include "assert.h"
 #include <vector>
@@ -39,7 +39,7 @@ private:
 	/** School */
 	School* school;
 	/** Array of stops */
-	Stop** stop;
+	Stop** stops;
 	/** Array of students*/
 	Student** student;
 
@@ -237,8 +237,11 @@ public:
 	 */
 	void print();
 
+	Stop** getStops() const {
+		return stops;
+	}
 };
 
 
 
-#endif /* INSTANCE_HPP_ */
+#endif /* SBRP_INCLUDE_INSTANCE_HPP_ */

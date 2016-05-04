@@ -9,8 +9,8 @@
  * \date April, 2016
  */
 
-#ifndef VERTEX_HPP_
-#define VERTEX_HPP_
+#ifndef SBRP_INCLUDE_VERTEX_HPP_
+#define SBRP_INCLUDE_VERTEX_HPP_
 
 #include "Utils.hpp"
 
@@ -33,4 +33,4 @@ public:
 	int get_id();
 };
 
-#endif /* VERTEX_HPP_ */
+#endif /* SBRP_INCLUDE_VERTEX_HPP_ */

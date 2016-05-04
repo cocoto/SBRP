@@ -1,30 +1,24 @@
-/**
- * \class Assignment
+/*
+ * StopAssignment.h
  *
- * This class represents an assignment of students to stops in a SBRP solution.
- *
- * \author EPS2016
- *
- * \date April, 2016
+ *  Created on: 26 avr. 2016
+ *      Author: popoola
  */
 
-#ifndef SBRP_INCLUDE_ASSIGNMENT_HPP_
-#define SBRP_INCLUDE_ASSIGNMENT_HPP_
-
+#ifndef STOPASSIGNMENT_H_
+#define STOPASSIGNMENT_H_
 #include "assert.h"
-
 #include "Instance.hpp"
-#include "Set_routes.hpp"
 
-class Assignment {
+class StopAssignment {
 private:
 	/** Instance of the problem */
 	Instance* instance;
 	/** Set of routes considered for the assignment */
-	Set_routes* routes;
+	Stop** stops;
 
 	/** Route to which each student is assigned*/
-	int* route_student;
+	int* stop_student;
 
 public:
 
@@ -34,12 +28,13 @@ public:
 	 * \param i instance of the problem
 	 * \param r set of routes of the solution
 	 */
-	Assignment(Instance* i, Set_routes* r);
+	StopAssignment(Instance* i, Stop** s);
 
+	StopAssignment(StopAssignment& s);
 	/**
 	 * Destructor of the class/
 	 */
-	~Assignment();
+	~StopAssignment();
 
 	/**
 	 * Remove all the assignments made.
@@ -60,21 +55,21 @@ public:
 	 * \param s_i index of the student
 	 * \param r_i index of the route
 	 */
-	void assign_student_route(int s_i, int r_i);
+	void assign_student_stop(int s_i, int r_i);
 
 	/**
 	 * Check if an assignment is feasible (taking into account the routes).
 	 *
 	 * \return true if the assignment is feasible, false otherwise.
 	 */
-	bool is_feasible();
+	//bool is_feasible();
 
 	/************* Assertion functions *************/
 
 	/**
 	 * Assert that an assignment is feasible.
 	 */
-	void assert_assignment();
+	//void assert_assignment();
 
 	/************* Input/Output (reading and printing) functions *************/
 
@@ -89,8 +84,20 @@ public:
 	 * \param file descriptor of the file on which the assignment will be printed
 	 */
 	void print_file_format(FILE *file);
+
+	/**
+	 * Get the stop to which a student is assigned
+	 * @param student
+	 * @return stop id assigned to student
+	 */
+
+	int get_stop_number(int student);
+
+	/**
+	 * Check if a stop is open or closed
+	 * @return true if a stop is contained in any of the used routes
+	 */
+	std::vector<bool> stops_used();
 };
 
-
-
-#endif /* SBRP_INCLUDE_ASSIGNMENT_HPP_ */
+#endif /* STOPASSIGNMENT_H_ */

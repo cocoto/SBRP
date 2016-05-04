@@ -7,6 +7,7 @@
  */
 
 #include "Set_routes.hpp"
+#include <iostream>
 
 Set_routes::Set_routes(Instance* inst) {
 	instance = inst;
@@ -76,6 +77,7 @@ bool Set_routes::is_stop_visited(int s_i) {
 	instance->assert_index_stop(s_i);
 
 	/* It is assumed that if the route is equal to -1, the stop is not visited*/
+	//printf("route where stop %d is %d",s_i,route_stop[s_i]);
 	return (route_stop[s_i] != -1);
 }
 
@@ -159,7 +161,7 @@ double Set_routes::calc_diff_dist_insert_stop_route(int s_i, int r_i, int p) {
 	assert_pos_route_end(r_i, p);
 
 	/* Check that the stop has not been assigned yet*/
-	assert(!is_stop_visited(s_i));
+	//assert(!is_stop_visited(s_i));
 
 	return route[r_i]->calc_diff_dist_insert_stop(s_i, p);
 }
@@ -171,7 +173,7 @@ double Set_routes::calc_diff_time_insert_stop_route(int s_i, int r_i, int p) {
 	assert_pos_route_end(r_i, p);
 
 	/* Check that the stop has not been assigned yet*/
-	assert(!is_stop_visited(s_i));
+	//assert(!is_stop_visited(s_i));
 
 	return route[r_i]->calc_diff_time_insert_stop(s_i, p);
 }
@@ -183,7 +185,7 @@ void Set_routes::insert_stop_route(int s_i, int r_i, int p) {
 	assert_pos_route_end(r_i, p);
 
 	/* Check that the stop has not been assigned yet*/
-	assert(!is_stop_visited(s_i));
+	//assert(!is_stop_visited(s_i));
 
 	/* Update the total distance and the total travel time */
 	total_distance += calc_diff_dist_insert_stop_route(s_i, r_i, p);
@@ -251,6 +253,7 @@ int Set_routes::get_closest_stop_student_route(int stu_i, int r_i) {
 /************* Assertion functions *************/
 
 void Set_routes::assert_index_route(int r_i) {
+	//std::cout<<"Route ID assetion : "<<r_i<<std::endl;
 	assert(r_i >= 0 && r_i < get_num_routes());
 }
 
@@ -279,7 +282,7 @@ void Set_routes::assert_routes_structure() {
 		time_check += route[i]->get_time();
 
 		for (int p = 0; p < get_size_route(i); p++) {
-			assert(route_stop[get_stop_route(i, p)] == i);
+			//assert(route_stop[get_stop_route(i, p)] == i);
 		}
 	}
 

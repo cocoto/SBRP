@@ -8,8 +8,8 @@
  * \date April, 2016
  */
 
-#ifndef ROUTE_HPP_
-#define ROUTE_HPP_
+#ifndef SBRP_INCLUDE_ROUTE_HPP_
+#define SBRP_INCLUDE_ROUTE_HPP_
 
 #include <vector>
 #include "assert.h"
@@ -187,4 +187,4 @@ public:
 
 
 
-#endif /* ROUTE_HPP_ */
+#endif /* SBRP_INCLUDE_ROUTE_HPP_ */

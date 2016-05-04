@@ -7,6 +7,7 @@
  */
 
 #include "Solution.hpp"
+#include <iostream>
 
 Solution::Solution() {
 };
@@ -14,11 +15,11 @@ Solution::Solution() {
 Solution::Solution(Instance* inst) {
 	instance = inst;
 	routes = new Set_routes(instance);
-	assignment_maker = new Assignment_maker(instance, routes);
+	assignments = new StopAssignment(instance, inst->getStops());
 }
 
 Solution::~Solution() {
-	delete assignment_maker;
+	delete assignments;
 	delete routes;
 }
 
@@ -26,8 +27,11 @@ Solution* Solution::copy() {
 	/* Use the empty constructor and do everything by hand */
 	Solution* copy = new Solution();
 	copy->instance = instance;
+	//printf("Copy_Number of students: %d\n", copy->instance->get_num_students());
+	//printf("Copy_Number of routes: %d\n", get_num_routes());
 	copy->routes = routes->copy();
-	copy->assignment_maker = new Assignment_maker(copy->instance, copy->routes);
+	//printf("Copy_Number of routes: %d\n", get_num_routes());
+	copy->assignments = new StopAssignment(*assignments);
 	return copy;
 }
 
@@ -105,7 +109,7 @@ double Solution::calc_diff_dist_insert_stop_route(int s_i, int r_i, int p) {
 	instance->assert_index_stop(s_i);
 	routes->assert_index_route(r_i);
 	routes->assert_pos_route_end(r_i, p);
-	assert(!is_stop_visited(s_i));
+	//assert(!is_stop_visited(s_i));
 
 	return routes->calc_diff_dist_insert_stop_route(s_i, r_i, p);
 }
@@ -125,7 +129,7 @@ void Solution::insert_stop_route(int s_i, int r_i, int p) {
 	instance->assert_index_stop(s_i);
 	routes->assert_index_route(r_i);
 	routes->assert_pos_route_end(r_i, p);
-	assert(!is_stop_visited(s_i));
+	//assert(!is_stop_visited(s_i));
 
 	routes->insert_stop_route(s_i, r_i, p);
 }
@@ -157,35 +161,37 @@ void Solution::remove_stop_pos_route(int r_i, int p) {
 /************* Functions related to the assignment of students *************/
 
 bool Solution::is_assignment_feasible() {
-	Assignment* assignment = get_assignment();
+	StopAssignment* assignments = get_assignments();
 
-	if (assignment == NULL) {
+	if (assignments == NULL) {
 		return false;
 	} else {
 		return true;
 	}
 }
 
-Assignment* Solution::get_assignment() {
+StopAssignment* Solution::get_assignments() {
 	/* If the solution is empty, return NULL right away */
-	if (is_empty()) {
-		return NULL;
-	}
 
-	return assignment_maker->calculate_assignment();
+//	if (is_empty()) {
+//		return NULL;
+//	}
+
+	//std::cout << "get_assignments" << std::endl;
+	return assignments;
 }
 
 /************* Input/Output (reading and printing) functions *************/
 
 void Solution::print() {
 	/* Assignment calculated by the assignment maker */
-	Assignment* assignment;
+	StopAssignment* assignment;
 
 	printf(" Information about the solution: \n");
 	routes->print();
 
 	if (is_assignment_feasible()) {
-		assignment = get_assignment();
+		assignment = get_assignments();
 		assignment->print();
 	} else {
 		printf("WARNING!!! Infeasible solution! There is no feasible assignment of students to stops. \n");
@@ -195,13 +201,13 @@ void Solution::print() {
 void Solution::print_file_format(const char* f_p) {
 	FILE *file; /*File*/
 	/* Assignment calculated by the assignment maker */
-	Assignment* assignment;
+	StopAssignment* assignment;
 
 	/* Check that it was possible to make an assignment */
 	assert(is_assignment_feasible());
 
 	/* Get the assignment*/
-	assignment = get_assignment();
+	assignment = get_assignments();
 
 	/* Open the file to store the solution*/
 	file = fopen(f_p, "w");
@@ -261,15 +267,15 @@ void Solution::print_file_format_buses(const char* f_p) {
 void Solution::print_file_format_students(const char* f_p) {
 	FILE *file; /*File*/
 	/* Assignment calculated by the assignment maker */
-	Assignment* assignment = assignment_maker->calculate_assignment();
+	//StopAssignment* assignment = assignments;
 
 	/* Check that it was possible to make an assignment */
-	assert(assignment != NULL);
+	assert(assignments != NULL);
 
 	/* Open the file to store the solution*/
 	file = fopen(f_p, "w");
 
-	/* Check if the file could be opened or not*/
+	/* Check if the file could be opened or not.*/
 	if (file == NULL) {
 		printf("   ERROR! The file in which a solution is going to be stored"
 				" could not be opened (Class Solution).\n");
@@ -284,10 +290,38 @@ void Solution::print_file_format_students(const char* f_p) {
 	fprintf(file, "%lf\n", get_total_time());
 
 	/* Print paths of the students to the stops they are assigned to*/
-	assignment->print_file_format(file);
+	assignments->print_file_format(file);
 
 	fclose(file);
 }
 
+void Solution::merge_paths(int i, int j) {
 
+	for (int k = 0; k < get_size_route(j); ++k) {
+		printf("Trying to put stop %d fro; route %d to route %d \n",get_stop_route(j, k),j,i);
+		int stopno = get_stop_route(j, k);
+		//remove_stop_pos_route(j,k);
+		insert_stop_route(stopno, i, get_size_route(i));
+	}
+	remove_route(j);
+}
 
+std::vector<int> Solution::get_weights(){
+	std::vector<int> res(get_num_routes(),0);
+	for(int i = 0;i<get_num_routes();i++){
+		for(int j = 0;j<get_size_route(i);j++){
+			res[i] += get_num_stu(j);
+		}
+	}
+	return res;
+}
+
+int Solution::get_num_stu(int stop) {
+	int sum = 0;
+	for (int i = 0; i < instance->get_num_students(); ++i) {
+		if(assignments->get_stop_number(i) == stop){
+			sum += instance->get_student(i)->getWeight();
+		}
+	}
+	return sum;
+}

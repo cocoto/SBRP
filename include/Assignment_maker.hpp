@@ -15,7 +15,7 @@
 #include "Instance.hpp"
 #include "Set_routes.hpp"
 #include "Assignment.hpp"
-
+/*
 //using namespace localsolver;
 //using namespace std;
 
@@ -24,37 +24,37 @@
 
 class Assignment_maker {
 private:
-	/** Instance of the problem */
+	* Instance of the problem
 	Instance* instance;
-	/** Set of routes in the solution */
-	Set_routes* routes;
-	/** Assignment */
-	Assignment* assignment;
+	* Set of routes in the solution
+	Stop** stops;
+	* Assignment
+	StopAssignment* assignment;
 
 public:
 
-	/**
+	*
 	 * Constructor of the class.
 	 *
 	 * \param i instance of the problem
 	 * \param r set of routes in the solution
-	 */
-	Assignment_maker(Instance* i, Set_routes* r);
 
-	/**
+	Assignment_maker(Instance* i, Stop** s);
+
+	*
 	 * Destructor of the class.
-	 */
+
 	~Assignment_maker();
 
-	/**
+	*
 	 * Calculate an assignment of the students in the current routes.
 	 *
 	 * \return an object assignment if the assignment is feasible, NULL otherwise.
-	 */
-	Assignment* calculate_assignment();
+
+	StopAssignment* calculate_assignment();
 
 };
 
 
 
-#endif /* ASSIGNMENT_MAKER_HPP_ */
+#endif  ASSIGNMENT_MAKER_HPP_ */

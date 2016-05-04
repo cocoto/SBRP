@@ -8,8 +8,8 @@
  * \date April, 2016
  */
 
-#ifndef TRAVEL_INFO_HPP_
-#define TRAVEL_INFO_HPP_
+#ifndef SBRP_INCLUDE_TRAVEL_INFO_HPP_
+#define SBRP_INCLUDE_TRAVEL_INFO_HPP_
 
 #include "assert.h"
 #include <stdio.h>
@@ -128,4 +128,4 @@ public:
 
 
 
-#endif /* TRAVEL_INFO_HPP_ */
+#endif /* SBRP_INCLUDE_TRAVEL_INFO_HPP_ */
