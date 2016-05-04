@@ -1,0 +1,9 @@
+[Number of paths to draw "P"]
+[Total distance traversed by the buses]
+[Total time taken by the buses]
+[Number of vertices in path 0 "N0"] [Vertex 0 in path 0] ... [Vertex N0 - 1 in path 0]
+[Number of vertices in path 1 "N1"] [Vertex 0 in path 1] ... [Vertex N1 - 1 in path 1]
+             ...                            ...          ...             ...            
+[Number of vertices in path P "NP"] [Vertex 0 in path P] ... [Vertex NP - 1 in path P]
+
+

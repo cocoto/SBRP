@@ -1,0 +1,6 @@
+[Number of vertices "V"]
+[Distance vertices  0,0]  [Distance vertices 0,1]   [Distance vertices 0,2]   ... [Distance vertices 0,V-1]
+[Distance vertices  1,0]  [Distance vertices 1,1]   [Distance vertices 1,2]   ... [Distance vertices 1,V-1]
+[Distance vertices  2,0]  [Distance vertices 2,1]   [Distance vertices 2,2]   ... [Distance vertices 2,V-1]
+        ...                       ...                       ...               ...         ...
+[Distance vertices V-1,0] [Distance vertices V-1,1] [Distance vertices V-1,2] ... [Distance vertices V-1,V-1]

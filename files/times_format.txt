@@ -1,0 +1,6 @@
+[Number of vertices "V"]
+[Time vertices  0,0]  [Time vertices 0,1]   [Time vertices 0,2]   ... [Time vertices 0,V-1]
+[Time vertices  1,0]  [Time vertices 1,1]   [Time vertices 1,2]   ... [Time vertices 1,V-1]
+[Time vertices  2,0]  [Time vertices 2,1]   [Time vertices 2,2]   ... [Time vertices 2,V-1]
+    ...                   ...                   ...               ...      ...
+[Time vertices V-1,0] [Time vertices V-1,1] [Time vertices V-1,2] ... [Time vertices V-1,V-1]

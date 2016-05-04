@@ -1,0 +1,1 @@
+[Number of schools] [Number of students] [Capacity of the buses] [Maximum distance that a student is allowed to walk]
